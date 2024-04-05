@@ -16,10 +16,10 @@ import os
 
 import mujoco
 
-# import mujoco.usd.shapes as shapes_module
-# import mujoco.usd.component as component_module
-import shapes as shapes_module
-import component as component_module
+import mujoco.usd.shapes as shapes_module
+import mujoco.usd.component as component_module
+# import .shapes as shapes_module
+# import .component as component_module
 
 import numpy as np
 import scipy
@@ -370,12 +370,12 @@ class USDExporter:
   ):
 
     if light_type == "sphere":
-      new_light = component_module.USDSphereLight(stage=self.stage, obj_name=str(objid), radius=radius)
+      new_light = component_module.USDSphereLight(stage=self.stage, obj_name=obj_name, radius=radius)
 
       new_light.update(pos=np.array(pos), intensity=intensity, color=color, frame=0)
     elif light_type == "dome":
       new_light = component_module.USDDomeLight(
-          stage=self.stage, obj_name=str(objid))
+          stage=self.stage, obj_name=obj_name)
 
       new_light.update(intensity=intensity, color=color, frame=0)
 
@@ -386,7 +386,7 @@ class USDExporter:
       obj_name: Optional[str] = "camera_1",
   ):
     new_camera = component_module.USDCamera(
-        stage=self.stage, obj_name=str(objid))
+        stage=self.stage, obj_name=obj_name)
 
     r = scipy.spatial.transform.Rotation.from_euler(
         "xyz", rotation_xyz, degrees=True)
